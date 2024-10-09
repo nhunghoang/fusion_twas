@@ -190,6 +190,13 @@ for ( w in 1:nrow(wgtlist) ) {
 	} else {
 		# get the most significant model
 		mod.best = which.min(apply(cv.performance[row.pval,,drop=F],2,min,na.rm=T))
+
+        ## NH: take next best if 'top1'
+        #if (substr(colnames(cv.performance)[mod.best], 1, 4) == "top1") {
+        #    cat("Ignoring 'top1' model and going with second-best model\n")
+        #    non_top1_indices = which(substr(colnames(cv.performance), 1, 4) != "top1")
+        #    mod.best = non_top1_indices[which.min(apply(cv.performance[row.pval, non_top1_indices, drop=F], 2, min, na.rm=T))]
+        #}
 	}
 	if ( length(mod.best) == 0 ) {
 		cat( "WARNING : " , unlist(wgtlist[w,]) , " did not have a predictive model ... skipping entirely\n" )
